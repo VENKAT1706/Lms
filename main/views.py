@@ -1,11 +1,19 @@
 import datetime
 from django.shortcuts import redirect, render
 from django.contrib import messages
+<<<<<<< HEAD
 from .models import Student, Course, Announcement, Assignment, Submission, Material, Faculty, Department
 from django.template.defaulttags import register
 from django.db.models import Count, Q
 from django.http import HttpResponseRedirect
 from .forms import AnnouncementForm, AssignmentForm, MaterialForm
+=======
+from .models import Student, Course, Announcement, Assignment, Submission, Material, Faculty, Department, ExternalResource
+from django.template.defaulttags import register
+from django.db.models import Count, Q
+from django.http import HttpResponseRedirect
+from .forms import AnnouncementForm, AssignmentForm, MaterialForm, ExternalResourceForm
+>>>>>>> 86c433b (second commit)
 from django import forms
 from django.core import validators
 
@@ -152,7 +160,12 @@ def course_page(request, code):
                 'announcements': announcements,
                 'assignments': assignments[:3],
                 'materials': materials,
+<<<<<<< HEAD
                 'student': Student.objects.get(student_id=request.session['student_id'])
+=======
+                'student': Student.objects.get(student_id=request.session['student_id']),
+                'externalresources': ExternalResource.objects.filter(course_code=course)
+>>>>>>> 86c433b (second commit)
             }
 
             return render(request, 'main/course.html', context)
@@ -185,7 +198,12 @@ def course_page_faculty(request, code):
             'assignments': assignments[:3],
             'materials': materials,
             'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']),
+<<<<<<< HEAD
             'studentCount': studentCount
+=======
+            'studentCount': studentCount,
+            'externalresources': ExternalResource.objects.filter(course_code=course),
+>>>>>>> 86c433b (second commit)
         }
 
         return render(request, 'main/faculty_course.html', context)
@@ -456,7 +474,11 @@ def gradeSubmission(request, code, id, sub_id):
                     'assignment': assignment,
                     'totalStudents': len(Student.objects.filter(course=course)),
                     'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']),
+<<<<<<< HEAD
                     'courses': Course.objects.filter(faculty_id=request.session['faculty_id'])
+=======
+                    'courses': Course.objects.filter(faculty_id=request.session['faculty_id']),
+>>>>>>> 86c433b (second commit)
                 }
 
                 return render(request, 'main/assignment-view.html', context)
@@ -496,6 +518,38 @@ def deleteCourseMaterial(request, code, id):
         return redirect('std_login')
 
 
+<<<<<<< HEAD
+=======
+def addExternalResource(request, code):
+    if is_faculty_authorised(request, code):
+        if request.method == 'POST':
+            form = ExternalResourceForm(request.POST)
+            form.instance.course_code = Course.objects.get(code=code)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'New external link added')
+                return redirect('/faculty/' + str(code))
+            else:
+                return render(request, 'main/external-link.html', {'course': Course.objects.get(code=code), 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']), 'form': form})
+        else:
+            form = ExternalResourceForm()
+            return render(request, 'main/external-link.html', {'course': Course.objects.get(code=code), 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']), 'form': form})
+    else:
+        return redirect('std_login')
+    
+
+def deleteExternalResource(request, code, id):
+    if is_faculty_authorised(request, code):
+        course = Course.objects.get(code=code)
+        external_resource = ExternalResource.objects.get(course_code=course, id=id)
+        external_resource.delete()
+        messages.warning(request, 'External link deleted')
+        return redirect('/faculty/' + str(code))
+    else:
+        return redirect('std_login')
+    
+
+>>>>>>> 86c433b (second commit)
 def courses(request):
     if request.session.get('student_id') or request.session.get('faculty_id'):
 

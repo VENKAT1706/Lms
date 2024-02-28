@@ -35,6 +35,13 @@ urlpatterns = [
          views.addCourseMaterial, name='addCourseMaterial'),
     path('course-material/<int:code>/<int:id>/',
          views.deleteCourseMaterial, name='deleteCourseMaterial'),
+<<<<<<< HEAD
+=======
+    path('external-resource/<int:code>/',
+         views.addExternalResource, name='addExternalResource'),
+    path('external-resource/<int:code>/<int:id>/',
+         views.deleteExternalResource, name='deleteExternalResource'),
+>>>>>>> 86c433b (second commit)
     path('courses/', views.courses, name='courses'),
     path('departments/', views.departments, name='departments'),
     path('access/<int:code>/', views.access, name='access'),

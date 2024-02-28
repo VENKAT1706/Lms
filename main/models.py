@@ -203,4 +203,25 @@ class Material(models.Model):
         super().delete(*args, **kwargs)
 
     def post_date(self):
+<<<<<<< HEAD
+=======
+        return self.datetime.strftime("%d-%b-%y, %I:%M %p")
+
+class ExternalResource(models.Model):
+    course_code = models.ForeignKey(
+        Course, on_delete=models.CASCADE, null=False)
+    description = models.TextField(max_length=2000, null=False)
+    datetime = models.DateTimeField(auto_now_add=True, null=False)
+    link = models.URLField(null=False)
+    title = models.CharField(max_length=255, null=False)
+    
+    class Meta:
+        verbose_name_plural = "External Resources"
+        ordering = ['-datetime']
+
+    def __str__(self):
+        return self.title
+
+    def post_date(self):
+>>>>>>> 86c433b (second commit)
         return self.datetime.strftime("%d-%b-%y, %I:%M %p")

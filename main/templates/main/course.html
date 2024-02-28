@@ -135,6 +135,32 @@
          </div>
       </div>
       <!-- course material section ends -->
+<<<<<<< HEAD
+=======
+      <div class="rounded p-3 m-3 shadow border border-top-0 border-bottom-0 border-warning border-end-0 border-5" id="externalresource">
+        <!-- section title -->
+        <div class="fw-bold animate__animated animate__zoomInDown fs-5 text-center border-bottom border-1 mb-2 py-2" style="color: rgb(10, 10, 48);"><img src="{% static 'images/icon/folder.png' %}"
+           alt="" style="height:1.5rem;vertical-align: text-top"><span style="margin-right: 0.6rem;"></span>External Resources</div>
+        <!-- section title ends -->
+        <div>
+           {% for res in externalresources  %}
+           <!-- individual material starts -->
+           <p>{% autoescape off %}{{ res.title }}{% endautoescape %}</p>
+           <div class="d-flex justify-content-between text-break">
+              {% if res.link %}
+              <a class="fw-bold" href="{{ res.link }}"><span style="color:#9400d3" id="resourceName">{{res.link}}</span></a><br>
+              {% endif %}
+              <div class="text-muted">
+                 {{res.post_date}}
+              </div>
+           </div>
+           {% empty %}
+           <p class="text-center text-muted fs-6">Course external resources not available</p>
+           {% endfor %}
+           <!-- individual material ends -->
+        </div>
+     </div>
+>>>>>>> 86c433b (second commit)
    </div>
 </div>
 <script>

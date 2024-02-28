@@ -1,6 +1,10 @@
 from django import forms
 from froala_editor.widgets import FroalaEditor
+<<<<<<< HEAD
 from .models import Announcement, Assignment, Material
+=======
+from .models import Announcement, Assignment, Material, ExternalResource
+>>>>>>> 86c433b (second commit)
 
 
 class AnnouncementForm(forms.ModelForm):
@@ -51,4 +55,23 @@ class MaterialForm(forms.ModelForm):
         widgets = {
             'description': FroalaEditor(),
             'file': forms.FileInput(attrs={'class': 'form-control', 'id': 'file', 'name': 'file', 'aria-describedby': 'file', 'aria-label': 'Upload'}),
+<<<<<<< HEAD
+=======
+        }
+
+class ExternalResourceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ExternalResourceForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = True
+            field.label = ""
+        self.fields['link'].required = True
+
+    class Meta:
+        model = ExternalResource
+        fields = ('title', 'link')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'id': 'title', 'name': 'title', 'placeholder': 'Title'}),
+            'link': forms.URLInput(attrs={'class': 'form-control', 'id': 'link', 'name': 'link', 'placeholder': 'Link'}),
+>>>>>>> 86c433b (second commit)
         }
